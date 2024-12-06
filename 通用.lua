@@ -7,8 +7,8 @@ getgenv().ED_AntiKick = {
 	SendNotifications = true, -- Set to true if you want to get notified for every event
 	CheckCaller = true -- Set to true if you want to disable kicking by other executed scripts
 }
-local Lengui = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/%E5%86%B7library.lua"))()     
-local win = ui:new("冷脚本")
+local Lengui = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/cold%20script%20ui.txt"))()     
+local win = Lengui:new("冷脚本")
 --
 local UITab1 = win:Tab("『信息』",'87437251671184')
 
