@@ -57,32 +57,51 @@ local UITab4 = win:Tab("『刷钱』",'7734068321')
 
 local about = UITab4:section("『刷钱』",true)
 
-about:Button("自动刷钱",function()
+about:Button("卡车刷钱",function()
     game:GetService('RunService').Stepped:Connect(function()
         local virtualUser = game:GetService('VirtualUser')
         virtualUser:CaptureController()
     
-        local autoFarm = true
+        game:GetService("ReplicatedStorage").TeamSwitch:FireServer("Trucker")
+        task.wait(1)
     
-        function autoFarm()
-            while autoFarm do
-                fireclickdetector(game.Workspace.DeliverySys.Misc["Package Pile"].ClickDetector)
-                task.wait(2)
+        for _, v in ipairs(game:GetService("Workspace").TruckingJob:GetChildren()) do
+            if v.Name == "Depot" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                task.wait(1)
     
-                for _, point in pairs(game.Workspace.DeliverySys.DeliveryPoints:GetChildren()) do
-                    if point.Locate.Locate.Enabled then
-                        point.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
-                for _, point in pairs(game.Workspace.DeliverySys.DeliveryPoints.Point:GetChildren()) do
-                    if point.Name == "Name" then
-                        point.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
-                        task.wait(1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(true, "E" , false , game)
+                task.wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false, "E" , false , game)
+                task.wait(0.5)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false, "E" , false , game)
+                task.wait(0.3)
+                
+                game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalTrucks:InvokeServer()
+                task.wait(1.5)
+                
+                game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalJob:InvokeServer(workspace.TruckingJob.Coal.routeA, "2018 FAW J6P Facelift")
+                task.wait(1.5)
+                
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10586.1416, 43.4061317, 3235.26807, -0.566008806, 0.0127263758, -0.824300945, -0.00799922366, 0.999749005, 0.0209278092, 0.824360371, 0.0184390917, -0.565764904)
+                task.wait(1.5)
+                
+                for _, pickup in ipairs(game:GetService("Workspace").TruckingJob.Coal.routeA:GetChildren()) do
+                    if pickup.Name == "Pickup" then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pickup.CFrame
+                        task.wait(3)
+    
+                        for _, dropoff in ipairs(game:GetService("Workspace").TruckingJob.Coal.routeA:GetChildren()) do
+                            if dropoff.Name == "Dropoff" then
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = dropoff.CFrame
+                                task.wait(3)
+                            end
+                        end
                     end
                 end
-                task.wait(1)
             end
         end
-    end
-        autoFarm()
+        task.wait(1)
     end)
 end)
 
