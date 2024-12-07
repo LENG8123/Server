@@ -7,6 +7,22 @@ getgenv().ED_AntiKick = {
 	SendNotifications = true, -- Set to true if you want to get notified for every event
 	CheckCaller = true -- Set to true if you want to disable kicking by other executed scripts
 }
+local dropdown = {}
+local playernamedied = ""
+
+for i, player in pairs(game.Players:GetPlayers()) do
+    dropdown[i] = player.Name
+end
+
+function Notify(top, text, ico, dur)
+  game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = top,
+    Text = text,
+    Icon = ico,
+    Duration = dur,
+  })
+end
+
 local Lengui = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/%E5%86%B7library.lua"))()     
 local win = Lengui:new("冷脚本")
 --
@@ -117,22 +133,6 @@ local UITab6 = win:Tab("『通用』",'87437251671184')
 
 local about = UITab6:section("『通用』",true)
 
-local dropdown = {}
-local playernamedied = ""
-
-for i, player in pairs(game.Players:GetPlayers()) do
-    dropdown[i] = player.Name
-end
-
-function Notify(top, text, ico, dur)
-  game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = top,
-    Text = text,
-    Icon = ico,
-    Duration = dur,
-  })
-end
-
 local Players = SelectPlayer:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
     playernamedied = v
 end)
@@ -153,7 +153,7 @@ end)
 
 about:Button("传送到玩家旁边", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(LS.playernamedied)
+    local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
         HumRoot.CFrame = tp_player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
         Notify("冷", "已经传送到玩家身边", "rbxassetid://", 5)
@@ -164,7 +164,7 @@ end)
 
 about:Button("把玩家传送过来", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(LS.playernamedied)
+    local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
         tp_player.Character.HumanoidRootPart.CFrame = HumRoot.CFrame + Vector3.new(0, 3, 0)
         Notify("冷", "已传送过来", "rbxassetid://", 5)
@@ -184,16 +184,6 @@ about:Toggle("查看玩家", 'Toggleflag', false, function(state)
         game:GetService('Workspace').CurrentCamera.CameraSubject = lp.Character.Humanoid
     end
 end)
-
-about:Button("刷新列表", function()
-	shuaxinlb(true)
-	dropdown:SetOptions(REN["拓展表"]["传送到玩家身边"].dropdown)
-end)
-
-about:Button("传送到玩家旁边",function()  
-            tp(game:GetService("Players")[REN["拓展表"]["传送到玩家身边"].playernamedied].Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0))
-end)
-
 about:Button("玩家加入游戏提示",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/boyscp/scriscriptsc/main/bbn.lua"))()
 end)
@@ -859,12 +849,6 @@ end)
      sound.Parent = game.Workspace 
      sound:Play() 
      end)
-   about:Button("男娘必听",function() 
-         local sound = Instance.new("Sound") 
-     sound.SoundId = "rbxassetid://6797864253" 
-     sound.Parent = game.Workspace 
-     sound:Play() 
-     end) 
    about:Button("螃蟹之舞",function() 
          local sound = Instance.new("Sound") 
      sound.SoundId = "rbxassetid://54100886218" 
@@ -994,6 +978,53 @@ end)
 local UITab12 = win:Tab("『刷钱』",'87437251671184')
 
 local about = UITab12:section("『刷钱』",true)
+
+about:Button("Trucker",function()
+game:GetService('RunService').Stepped:Connect(function()
+    local virtualUser = game:GetService('VirtualUser')
+    virtualUser:CaptureController()
+
+    game:GetService("ReplicatedStorage").TeamSwitch:FireServer("Trucker")
+    task.wait(1)
+
+    for _, v in ipairs(game:GetService("Workspace").TruckingJob:GetChildren()) do
+        if v.Name == "Depot" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(0, 3, 0)
+            task.wait(1)
+
+            game:GetService("VirtualInputManager"):SendKeyEvent(true, "E" , false , game)
+            task.wait(0.1)
+            game:GetService("VirtualInputManager"):SendKeyEvent(false, "E" , false , game)
+            task.wait(0.5)
+            game:GetService("VirtualInputManager"):SendKeyEvent(false, "E" , false , game)
+            task.wait(0.3)
+            
+            game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalTrucks:InvokeServer()
+            task.wait(1.5)
+            
+            game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalJob:InvokeServer(workspace.TruckingJob.Coal.routeA, "2018 FAW J6P Facelift")
+            task.wait(1.5)
+            
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10586.1416, 43.4061317, 3235.26807, -0.566008806, 0.0127263758, -0.824300945, -0.00799922366, 0.999749005, 0.0209278092, 0.824360371, 0.0184390917, -0.565764904)
+            task.wait(1.5)
+            
+            for _, pickup in ipairs(game:GetService("Workspace").TruckingJob.Coal.routeA:GetChildren()) do
+                if pickup.Name == "Pickup" then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pickup.CFrame + Vector3.new(0, 3, 0)
+                    task.wait(3)
+
+                    for _, dropoff in ipairs(game:GetService("Workspace").TruckingJob.Coal.routeA:GetChildren()) do
+                        if dropoff.Name == "Dropoff" then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = dropoff.CFrame + Vector3.new(0, 3, 0)
+                            task.wait(3)
+                        end
+                    end
+                end
+            end
+        end
+    end
+    task.wait(1)
+end)
  
 about:Label("需要先成为送货司机才能自动刷钱")
 local function autoFarm()
