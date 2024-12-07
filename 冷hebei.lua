@@ -1,4 +1,4 @@
-local ui = loadstring(game:HttpGet("https://raw.githubusercontent.com/odhdshhe/lengffui/refs/heads/main/%E5%86%B7library.lua"))()        
+local ui = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/%E5%86%B7library.lua"))()        
 local win = ui:new("冷脚本")
 --
 local UITab1 = win:Tab("『信息』",'7734068321')
@@ -72,17 +72,20 @@ about:Button("自动刷钱",function()
                 for _, point in pairs(game.Workspace.DeliverySys.DeliveryPoints:GetChildren()) do
                     if point.Locate.Locate.Enabled then
                         point.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+                for _, point in pairs(game.Workspace.DeliverySys.DeliveryPoints.Point:GetChildren()) do
+                    if point.Name == "Name" then
+                        point.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
                         task.wait(1)
                     end
                 end
                 task.wait(1)
             end
         end
-    
+    end
         autoFarm()
     end)
 end)
- 
+
 about:Label("需要先成为送货司机才能自动刷钱")
 local function autoFarm()
     while _G.autoFarm do
