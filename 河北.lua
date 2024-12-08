@@ -36,8 +36,8 @@ about:Label("QQ群：815883059")
 about:Label("作者：冷")
 about:Label("进群发最新冷脚本")
 about:Label("脚本持续更新中")
-about:Label("帮助者:月星,lishichuan丁丁,小皮")
-about:Label("月星,lishichuan丁丁,小皮是冷一辈子的恩人")
+about:Label("帮助者:月星,小皮,lishichuan丁丁")
+about:Label("月星,小皮,lishichuan丁丁是冷一辈子的恩人")
 about:Label("脚本懒得优化")
 about:Label("欢迎使用🤓")
 
@@ -46,10 +46,10 @@ local UITab2 = win:Tab("帮助榜",'87437251671184')
 local about = UITab2:section("『LENG Script』",true)
 
 about:Label("NO.1:月星")
-about:Label("NO.2:丁丁")
+about:Label("NO.2:小皮")
 about:Label("NO.3:小玄奘")
 about:Label("NO.4:小云")
-about:Label("NO.5:小皮")
+about:Label("NO.5:丁丁")
 about:Label("NO.6:林")
 
 local UITab3 = win:Tab("出生榜",'87437251671184')
@@ -133,7 +133,7 @@ local UITab6 = win:Tab("『通用』",'87437251671184')
 
 local about = UITab6:section("『通用』",true)
 
-local Players = SelectPlayer:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
+local Players = about:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
     playernamedied = v
 end)
 
@@ -184,6 +184,7 @@ about:Toggle("查看玩家", 'Toggleflag', false, function(state)
         game:GetService('Workspace').CurrentCamera.CameraSubject = lp.Character.Humanoid
     end
 end)
+
 about:Button("玩家加入游戏提示",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/boyscp/scriscriptsc/main/bbn.lua"))()
 end)
@@ -849,6 +850,12 @@ end)
      sound.Parent = game.Workspace 
      sound:Play() 
      end)
+   about:Button("男娘必听",function() 
+         local sound = Instance.new("Sound") 
+     sound.SoundId = "rbxassetid://6797864253" 
+     sound.Parent = game.Workspace 
+     sound:Play() 
+     end) 
    about:Button("螃蟹之舞",function() 
          local sound = Instance.new("Sound") 
      sound.SoundId = "rbxassetid://54100886218" 
@@ -867,10 +874,10 @@ end)
      sound.Parent = game.Workspace 
      sound:Play() 
      end) 
+     
+local UITab11 = win:Tab("『其他作者』",'87437251671184')
 
-local UITab14 = win:Tab("『其他作者』",'87437251671184')
-
-local about = UITab14:section("『其他作者』",true)
+local about = UITab11:section("『其他作者』",true)
 
 about:Button("LS",function()
 KingandJM = "King Advanced and Roaming prohibition center"LS = "LSTMArchive"Free = "My.Conscience"loadstring(game:HttpGet("https://github.com/XiaoyeQWQ/Bs/raw/refs/heads/main/LS.by.Moxiaobai.JM%20Studio.KingAdvancedteam.Members.loveme.LSTAB"))()
@@ -980,51 +987,47 @@ local UITab12 = win:Tab("『刷钱』",'87437251671184')
 local about = UITab12:section("『刷钱』",true)
 
 about:Button("Trucker",function()
-game:GetService('RunService').Stepped:Connect(function()
-    local virtualUser = game:GetService('VirtualUser')
-    virtualUser:CaptureController()
+local virtualUser = game:GetService('VirtualUser')
+virtualUser:CaptureController()
 
-    game:GetService("ReplicatedStorage").TeamSwitch:FireServer("Trucker")
+game:GetService("ReplicatedStorage").TeamSwitch:FireServer("Trucker")
+task.wait(0.2)
+
+local depot = nil
+for _, v in ipairs(game:GetService("Workspace").TruckingJob:GetChildren()) do
+    if v.Name == "Depot" then
+        depot = v
+        break
+    end
+end
+
+if depot then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = depot.CFrame + Vector3.new(0, 3, 0)
     task.wait(1)
 
-    for _, v in ipairs(game:GetService("Workspace").TruckingJob:GetChildren()) do
-        if v.Name == "Depot" then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(0, 3, 0)
-            task.wait(1)
+    game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalTrucks:InvokeServer()
+    task.wait(0.3)
 
-            game:GetService("VirtualInputManager"):SendKeyEvent(true, "E" , false , game)
-            task.wait(0.1)
-            game:GetService("VirtualInputManager"):SendKeyEvent(false, "E" , false , game)
-            task.wait(0.5)
-            game:GetService("VirtualInputManager"):SendKeyEvent(false, "E" , false , game)
-            task.wait(0.3)
+    game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalJob:InvokeServer(workspace.TruckingJob.Coal.routeA, "2018 FAW J6P Facelift")
+    task.wait(0.4)
+
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10586.5342, 43.4123001, 3235.58594, -0.568419814, 0.0115330284, -0.822657824, -0.00795597024, 0.999777913, 0.0195133369, 0.822700202, 0.0176368095, -0.56820184)
+    task.wait(1)
+
+    for _, pickup in ipairs(workspace.TruckingJob.Coal.routeA:GetChildren()) do
+        if pickup.Name == "Pickup" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pickup.CFrame + Vector3.new(0, 3, 0)
+            task.wait(3)
             
-            game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalTrucks:InvokeServer()
-            task.wait(1.5)
-            
-            game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalJob:InvokeServer(workspace.TruckingJob.Coal.routeA, "2018 FAW J6P Facelift")
-            task.wait(1.5)
-            
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10586.1416, 43.4061317, 3235.26807, -0.566008806, 0.0127263758, -0.824300945, -0.00799922366, 0.999749005, 0.0209278092, 0.824360371, 0.0184390917, -0.565764904)
-            task.wait(1.5)
-            
-            for _, pickup in ipairs(game:GetService("Workspace").TruckingJob.Coal.routeA:GetChildren()) do
-                if pickup.Name == "Pickup" then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pickup.CFrame + Vector3.new(0, 3, 0)
+            for _, dropoff in ipairs(workspace.TruckingJob.Coal.routeA:GetChildren()) do
+                if dropoff.Name == "Dropoff" then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = dropoff.CFrame + Vector3.new(0, 3, 0)
                     task.wait(3)
-
-                    for _, dropoff in ipairs(game:GetService("Workspace").TruckingJob.Coal.routeA:GetChildren()) do
-                        if dropoff.Name == "Dropoff" then
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = dropoff.CFrame + Vector3.new(0, 3, 0)
-                            task.wait(3)
-                        end
-                    end
                 end
             end
         end
     end
-    task.wait(1)
-end)
+end
  
 about:Label("需要先成为送货司机才能自动刷钱")
 local function autoFarm()
@@ -1238,5 +1241,3 @@ about:Button("变成巴车司机", function()
 game:GetService("ReplicatedStorage").TeamSwitch:FireServer(unpack(args))
 
 end)
-
-
