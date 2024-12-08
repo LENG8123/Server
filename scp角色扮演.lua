@@ -7,6 +7,22 @@ getgenv().ED_AntiKick = {
 	SendNotifications = true, -- Set to true if you want to get notified for every event
 	CheckCaller = true -- Set to true if you want to disable kicking by other executed scripts
 }
+local dropdown = {}
+local playernamedied = ""
+
+for i, player in pairs(game.Players:GetPlayers()) do
+    dropdown[i] = player.Name
+end
+
+function Notify(top, text, ico, dur)
+  game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = top,
+    Text = text,
+    Icon = ico,
+    Duration = dur,
+  })
+end
+
 local Lengui = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/%E5%86%B7library.lua"))()     
 local win = Lengui:new("冷脚本")
 --
@@ -20,8 +36,8 @@ about:Label("QQ群：815883059")
 about:Label("作者：冷")
 about:Label("进群发最新冷脚本")
 about:Label("脚本持续更新中")
-about:Label("帮助者:月星,lishichuan丁丁,小皮")
-about:Label("月星,lishichuan丁丁,小皮是冷一辈子的恩人")
+about:Label("帮助者:月星,小皮,lishichuan丁丁")
+about:Label("月星,小皮,lishichuan丁丁是冷一辈子的恩人")
 about:Label("脚本懒得优化")
 about:Label("欢迎使用🤓")
 
@@ -30,10 +46,10 @@ local UITab2 = win:Tab("帮助榜",'87437251671184')
 local about = UITab2:section("『LENG Script』",true)
 
 about:Label("NO.1:月星")
-about:Label("NO.2:丁丁")
+about:Label("NO.2:小皮")
 about:Label("NO.3:小玄奘")
 about:Label("NO.4:小云")
-about:Label("NO.5:小皮")
+about:Label("NO.5:丁丁")
 about:Label("NO.6:林")
 
 local UITab3 = win:Tab("出生榜",'87437251671184')
@@ -117,23 +133,7 @@ local UITab6 = win:Tab("『通用』",'87437251671184')
 
 local about = UITab6:section("『通用』",true)
 
-local dropdown = {}
-local playernamedied = ""
-
-for i, player in pairs(game.Players:GetPlayers()) do
-    dropdown[i] = player.Name
-end
-
-function Notify(top, text, ico, dur)
-  game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = top,
-    Text = text,
-    Icon = ico,
-    Duration = dur,
-  })
-end
-
-local Players = SelectPlayer:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
+local Players = about:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
     playernamedied = v
 end)
 
@@ -153,7 +153,7 @@ end)
 
 about:Button("传送到玩家旁边", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(LS.playernamedied)
+    local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
         HumRoot.CFrame = tp_player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
         Notify("冷", "已经传送到玩家身边", "rbxassetid://", 5)
@@ -164,7 +164,7 @@ end)
 
 about:Button("把玩家传送过来", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(LS.playernamedied)
+    local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
         tp_player.Character.HumanoidRootPart.CFrame = HumRoot.CFrame + Vector3.new(0, 3, 0)
         Notify("冷", "已传送过来", "rbxassetid://", 5)
@@ -183,15 +183,6 @@ about:Toggle("查看玩家", 'Toggleflag', false, function(state)
         local lp = game.Players.LocalPlayer
         game:GetService('Workspace').CurrentCamera.CameraSubject = lp.Character.Humanoid
     end
-end)
-
-about:Button("刷新列表", function()
-	shuaxinlb(true)
-	dropdown:SetOptions(REN["拓展表"]["传送到玩家身边"].dropdown)
-end)
-
-about:Button("传送到玩家旁边",function()  
-            tp(game:GetService("Players")[REN["拓展表"]["传送到玩家身边"].playernamedied].Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0))
 end)
 
 about:Button("玩家加入游戏提示",function()
@@ -883,7 +874,7 @@ end)
      sound.Parent = game.Workspace 
      sound:Play() 
      end) 
-
+     
 local UITab11 = win:Tab("『其他作者』",'87437251671184')
 
 local about = UITab11:section("『其他作者』",true)
