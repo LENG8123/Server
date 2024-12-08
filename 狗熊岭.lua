@@ -138,23 +138,7 @@ end)
 local creds = window:Tab("通用", "6031097229")
 local about = creds:section("信息", true)
 
-local dropdown = {}
-local playernamedied = ""
-
-for i, player in pairs(game.Players:GetPlayers()) do
-    dropdown[i] = player.Name
-end
-
-function Notify(top, text, ico, dur)
-  game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = top,
-    Text = text,
-    Icon = ico,
-    Duration = dur,
-  })
-end
-
-local Players = SelectPlayer:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
+local Players = about:Dropdown("选择玩家", 'Dropdown', dropdown, function(v)
     playernamedied = v
 end)
 
@@ -174,7 +158,7 @@ end)
 
 about:Button("传送到玩家旁边", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(LS.playernamedied)
+    local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
         HumRoot.CFrame = tp_player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
         Notify("冷", "已经传送到玩家身边", "rbxassetid://", 5)
@@ -185,7 +169,7 @@ end)
 
 about:Button("把玩家传送过来", function()
     local HumRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
-    local tp_player = game.Players:FindFirstChild(LS.playernamedied)
+    local tp_player = game.Players:FindFirstChild(playernamedied)
     if tp_player and tp_player.Character and tp_player.Character.HumanoidRootPart then
         tp_player.Character.HumanoidRootPart.CFrame = HumRoot.CFrame + Vector3.new(0, 3, 0)
         Notify("冷", "已传送过来", "rbxassetid://", 5)
@@ -204,15 +188,6 @@ about:Toggle("查看玩家", 'Toggleflag', false, function(state)
         local lp = game.Players.LocalPlayer
         game:GetService('Workspace').CurrentCamera.CameraSubject = lp.Character.Humanoid
     end
-end)
-
-about:Button("刷新列表", function()
-	shuaxinlb(true)
-	dropdown:SetOptions(REN["拓展表"]["传送到玩家身边"].dropdown)
-end)
-
-about:Button("传送到玩家旁边",function()  
-            tp(game:GetService("Players")[REN["拓展表"]["传送到玩家身边"].playernamedied].Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0))
 end)
 
 about:Button("玩家加入游戏提示",function()
@@ -238,7 +213,7 @@ about:Toggle("移除UI辉光", "DHG", false, function(DHG)
     end
 end)
 
-local about = creds:section("自瞄", true)
+local about = UITab6:section("『自瞄』",true)
 
 about:Button("冷自瞄（死亡消失）",function()
 loadstring(game:HttpGet("https://pastefy.app/ZYMlyhhz/raw",true))()
@@ -292,7 +267,7 @@ about:Button("自瞄全屏",function()
 loadstring(game:HttpGet("https://pastefy.app/n5LhGGgf/raw",true))()
 end)
 
-local about = creds:section("范围", true)
+local about = UITab6:section("『范围』",true)
 
 about:Textbox("自定义范围!", "HitBox", "输入", function(Value)
    _G.HeadSize = Value
@@ -330,7 +305,7 @@ about:Button("终极范围",function()
 loadstring(game:HttpGet("https://pastebin.com/raw/CAQ9x4A7"))()
 end)
 
-local about = creds:section("剩下懒得排了", true)
+local about = UITab6:section("『剩下懒得排了』",true)
 
 about:Button("反挂机v2",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/9fFu43FF"))()
