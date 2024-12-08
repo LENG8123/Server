@@ -986,48 +986,31 @@ local UITab12 = win:Tab("『刷钱』",'87437251671184')
 
 local about = UITab12:section("『刷钱』",true)
 
-about:Button("Trucker",function()
-local virtualUser = game:GetService('VirtualUser')
-virtualUser:CaptureController()
-
-game:GetService("ReplicatedStorage").TeamSwitch:FireServer("Trucker")
-task.wait(0.2)
-
-local depot = nil
-for _, v in ipairs(game:GetService("Workspace").TruckingJob:GetChildren()) do
-    if v.Name == "Depot" then
-        depot = v
-        break
-    end
-end
-
-if depot then
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = depot.CFrame + Vector3.new(0, 3, 0)
-    task.wait(1)
-
-    game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalTrucks:InvokeServer()
-    task.wait(0.3)
-
-    game:GetService("ReplicatedStorage").Packages.Shared.Network.RemoteFunctions.ClientRequestCoalJob:InvokeServer(workspace.TruckingJob.Coal.routeA, "2018 FAW J6P Facelift")
-    task.wait(0.4)
-
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10586.5342, 43.4123001, 3235.58594, -0.568419814, 0.0115330284, -0.822657824, -0.00795597024, 0.999777913, 0.0195133369, 0.822700202, 0.0176368095, -0.56820184)
-    task.wait(1)
-
-    for _, pickup in ipairs(workspace.TruckingJob.Coal.routeA:GetChildren()) do
-        if pickup.Name == "Pickup" then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pickup.CFrame + Vector3.new(0, 3, 0)
-            task.wait(3)
-            
-            for _, dropoff in ipairs(workspace.TruckingJob.Coal.routeA:GetChildren()) do
-                if dropoff.Name == "Dropoff" then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = dropoff.CFrame + Vector3.new(0, 3, 0)
-                    task.wait(3)
+about:Button("自动刷钱",function()
+    game:GetService('RunService').Stepped:Connect(function()
+        local virtualUser = game:GetService('VirtualUser')
+        virtualUser:CaptureController()
+    
+        local autoFarm = true
+    
+        function autoFarm()
+            while autoFarm do
+                fireclickdetector(game.Workspace.DeliverySys.Misc["Package Pile"].ClickDetector)
+                task.wait(2)
+    
+                for _, point in pairs(game.Workspace.DeliverySys.DeliveryPoints:GetChildren()) do
+                    if point.Locate.Locate.Enabled then
+                        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = point.CFrame
+                        task.wait(1)
+                    end
                 end
+                task.wait(1)
             end
         end
-    end
-end
+    
+        autoFarm()
+    end)
+end)
  
 about:Label("需要先成为送货司机才能自动刷钱")
 local function autoFarm()
