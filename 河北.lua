@@ -944,26 +944,193 @@ end)
 about:Button("名脚本",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/wumingjiaoben/z/refs/heads/main/%E6%97%A0%E5%90%8D%E8%84%9A%E6%9C%AC%E6%BA%90%E7%A0%813.0%20(1).lua"))()
 end)
+
+about:Button("斌脚本2.0.1",function() loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\66\73\78\106\105\97\111\98\122\120\54\47\66\73\78\106\105\97\111\47\109\97\105\110\47\66\73\78\46\108\117\97\34\41\41\40\41\10")
+end)
+  
+about:Button("复制斌脚本卡密",function()
+     setclipboard("bin2024HADE")
+end)
      
 local UITab10 = win:Tab("『传送』",'87437251671184')
 
 local about = UITab10:section("『传送』",true)
+
+about:Button("位置仪",function()
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local title = Instance.new("TextLabel")
+local copy = Instance.new("TextButton")
+local pos = Instance.new("TextBox")
+local find = Instance.new("TextButton")
  
-about:Button("传送到警察局", function()
+--Properties:
+ 
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ 
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.639646292, 0, 0.399008662, 0)
+Frame.Size = UDim2.new(0, 387, 0, 206)
+Frame.Active = true
+ 
+title.Name = "title"
+title.Parent = Frame
+title.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+title.BorderSizePixel = 0
+title.Size = UDim2.new(0, 387, 0, 50)
+title.Font = Enum.Font.GothamBold
+title.Text = "位置仪"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 30.000
+title.TextWrapped = true
+ 
+copy.Name = "copy"
+copy.Parent = Frame
+copy.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+copy.BorderSizePixel = 0
+copy.Position = UDim2.new(0.527131796, 0, 0.635922313, 0)
+copy.Size = UDim2.new(0, 148, 0, 50)
+copy.Font = Enum.Font.GothamSemibold
+copy.Text = "复制"
+copy.TextColor3 = Color3.fromRGB(255, 255, 255)
+copy.TextSize = 20.000
+ 
+pos.Name = "pos"
+pos.Parent = Frame
+pos.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+pos.BorderSizePixel = 0
+pos.Position = UDim2.new(0.0904392749, 0, 0.305825233, 0)
+pos.Size = UDim2.new(0, 317, 0, 50)
+pos.Font = Enum.Font.GothamSemibold
+pos.Text = ""
+pos.TextColor3 = Color3.fromRGB(255, 255, 255)
+pos.TextSize = 14.000
+pos.TextWrapped = true
+ 
+find.Name = "find"
+find.Parent = Frame
+find.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+find.BorderSizePixel = 0
+find.Position = UDim2.new(0.0904392898, 0, 0.635922313, 0)
+find.Size = UDim2.new(0, 148, 0, 50)
+find.Font = Enum.Font.GothamSemibold
+find.Text = "查找当前位置"
+find.TextColor3 = Color3.fromRGB(255, 255, 255)
+find.TextSize = 20.000
+ 
+-- Scripts:
+ 
+local function UMTQ_fake_script() -- copy.LocalScript 
+	local script = Instance.new('LocalScript', copy)
+ 
+	script.Parent.MouseButton1Click:Connect(function()
+		setclipboard(script.Parent.Parent.pos.Text)
+	end)
+end
+coroutine.wrap(UMTQ_fake_script)()
+local function KJAYG_fake_script() -- Frame.Dragify 
+	local script = Instance.new('LocalScript', Frame)
+ 
+	local UIS = game:GetService("UserInputService")
+	function dragify(Frame)
+	    dragToggle = nil
+	    local dragSpeed = 0
+	    dragInput = nil
+	    dragStart = nil
+	    local dragPos = nil
+	    function updateInput(input)
+	        local Delta = input.Position - dragStart
+	        local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+	        game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.25), {Position = Position}):Play()
+	    end
+	    Frame.InputBegan:Connect(function(input)
+	        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+	            dragToggle = true
+	            dragStart = input.Position
+	            startPos = Frame.Position
+	            input.Changed:Connect(function()
+	                if input.UserInputState == Enum.UserInputState.End then
+	                    dragToggle = false
+	                end
+	            end)
+	        end
+	    end)
+	    Frame.InputChanged:Connect(function(input)
+	        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+	            dragInput = input
+	        end
+	    end)
+	    game:GetService("UserInputService").InputChanged:Connect(function(input)
+	        if input == dragInput and dragToggle then
+	            updateInput(input)
+	        end
+	    end)
+	end
+ 
+	dragify(script.Parent)
+end
+coroutine.wrap(KJAYG_fake_script)()
+local function EKBNYI_fake_script() -- find.LocalScript 
+	local script = Instance.new('LocalScript', find)
+ 
+	script.Parent.MouseButton1Down:Connect(function()
+		script.Parent.Parent.pos.Text = tostring(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+	end)
+end
+coroutine.wrap(EKBNYI_fake_script)()
+end)
+
+about:Button("警察局", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5513.97412109375, 8.656171798706055, 4964.291015625)
 end)
-about:Button("传送到出生点", function()
+about:Button("出生点", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3338.31982421875, 10.048742294311523, 3741.84033203125)
 end)
-about:Button("传送到医院", function()
+about:Button("医院", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5471.482421875, 14.149418830871582, 4259.75341796875)
 end)
-about:Button("传送到手机店", function()
+about:Button("手机店", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6789.2041015625, 11.197686195373535, 1762.687255859375)
 end)
-about:Button("传送到火锅店", function()
+about:Button("火锅店", function()
   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5912.84765625, 12.217276573181152, 1058.29443359375)
 end)
+
+about:Button("蜜雪冰城",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6984.87158203125, 9.332854270935059, 1734.770751953125)
+end)
+
+about:Button("到小区",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2187.541259765625, 22.092992782592773, -636.7048950195312)
+end)
+
+about:Button("洗车店",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2578.51025390625, 23.332923889160156, -588.5584716796875)
+end)
+
+about:Button("卡车召唤地",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10559.13671875, 39.31748580932617, 3236.519287109375)
+end)
+
+about:Button("庆都山山顶",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-15042.9033203125, 325.29852294921875, 22355.177734375)
+end)
+
+about:Button("庆都山山底",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-15580.1357421875, 8.09992790222168, 21171.939453125)
+end)
+
+about:Button("小学",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-13888.138671875, 10.943490982055664, 11059.0458984375)
+end)
+
+about:Button("签挂美食",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-10332.763671875, 10.43997859954834, 7114.16064453125)
+end)
+
 
 local UITab11 = win:Tab("『整合』",'87437251671184')
 
