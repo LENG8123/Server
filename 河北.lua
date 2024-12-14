@@ -1238,7 +1238,7 @@ end)
 
 about:Label("第一个刷钱和第二个是不同的 一个不能用 可以用另一个")
 
-about:Button("河北唐县货车刷钱",function()
+about:Button("河北唐县卡车刷钱",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco8642/science/ok/T%20ang%20County"))()
 end)
 
