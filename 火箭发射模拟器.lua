@@ -23,6 +23,51 @@ function Notify(top, text, ico, dur)
   })
 end
 
+local playerGui = game.Players.LocalPlayer.PlayerGui
+
+local fpsGui = Instance.new("ScreenGui")
+fpsGui.Name = "FpsGui"
+fpsGui.Parent = playerGui
+
+local fpsLabel = Instance.new("TextLabel")
+fpsLabel.Name = "FpsLabel"
+fpsLabel.Size = UDim2.new(0, 100, 0, 20)
+fpsLabel.Position = UDim2.new(0, 20, 0, 20)
+fpsLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+fpsLabel.TextColor3 = Color3.new(1, 1, 1)
+fpsLabel.Font = Enum.Font.SourceSans
+fpsLabel.FontSize = Enum.FontSize.Size14
+fpsLabel.Text = "帧数: "
+fpsLabel.Parent = fpsGui
+
+local lastUpdate = tick()
+
+local fps = 0
+
+local function updateFpsCounter()
+    local deltaTime = tick() - lastUpdate
+    lastUpdate = tick()
+
+    fps = math.floor(1 / deltaTime)
+
+    fpsLabel.Text = "帧数: " .. fps
+end
+
+game:GetService("RunService").RenderStepped:Connect(updateFpsCounter)
+
+local function HeartbeatUpdate()
+	LastIteration = tick()
+	for Index = #FrameUpdateTable, 1, -1 do
+		FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+	end
+	FrameUpdateTable[1] = LastIteration
+	local CurrentFPS = (tick() - Start >= 1 and #FrameUpdateTable) or (#FrameUpdateTable / (tick() - Start))
+	CurrentFPS = CurrentFPS - CurrentFPS % 1
+	FpsLabel.Text = ("小冷时间 = "..os.date("%H").."时"..os.date("%M").."分"..os.date("%S"))
+end
+Start = tick()
+Heartbeat:Connect(HeartbeatUpdate)
+
 local Lengui = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/%E5%86%B7library.lua"))()     
 local win = Lengui:new("冷脚本")
 --
@@ -944,7 +989,14 @@ end)
 about:Button("名脚本",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/wumingjiaoben/z/refs/heads/main/%E6%97%A0%E5%90%8D%E8%84%9A%E6%9C%AC%E6%BA%90%E7%A0%813.0%20(1).lua"))()
 end)
-     
+ 
+about:Button("斌脚本2.0.1",function() loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\66\73\78\106\105\97\111\98\122\120\54\47\66\73\78\106\105\97\111\47\109\97\105\110\47\66\73\78\46\108\117\97\34\41\41\40\41\10")
+end)
+  
+about:Button("复制斌脚本卡密",function()
+     setclipboard("bin2024HADE")
+end)
+    
 local UITab10 = win:Tab("『火箭发射模拟器』",'87437251671184')
 
 local about = UITab10:section("『火箭发射模拟器』",true)
