@@ -944,10 +944,17 @@ end)
 about:Button("名脚本",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/wumingjiaoben/z/refs/heads/main/%E6%97%A0%E5%90%8D%E8%84%9A%E6%9C%AC%E6%BA%90%E7%A0%813.0%20(1).lua"))()
 end)
-     
-local UITab10 = win:Tab("『Doors  门』",'87437251671184')
+ 
+about:Button("斌脚本2.0.1",function() loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\66\73\78\106\105\97\111\98\122\120\54\47\66\73\78\106\105\97\111\47\109\97\105\110\47\66\73\78\46\108\117\97\34\41\41\40\41\10")
+end)
+  
+about:Button("复制斌脚本卡密",function()
+     setclipboard("bin2024HADE")
+end)
+         
+local UITab10 = win:Tab("『整合』",'87437251671184')
 
-local about = UITab10:section("『门』",true)
+local about = UITab10:section("『整合』",true)
 
 about:Button("微山Doors(2.3.2)",function()    loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\117\72\72\112\56\102\122\83"))()
 end)
@@ -959,6 +966,14 @@ end)
 about:Button("MS DOORS",function()
       loadstring(game:HttpGet(("https://raw.githubusercontent.com/mstudio45/poopdoors_edited/main/poopdoors_edited.lua"),true))()
 end)
+
+about:Button("冷汉化",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/server3/refs/heads/main/Loabma.lua"))()
+end)
+
+local UITab11 = win:Tab("『好用的』",'87437251671184')
+
+local about = UITab11:section("『好用的』",true)
       
 about:Button("可以清除东西的枪",function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/K0t1n/Public/main/Laser%20Gun"))()
@@ -1082,24 +1097,4 @@ end)
 
 about:Button("自动过rooms",function()
  loadstring(game:HttpGet('\x68\x74\x74\x70\x73\x3A\x2F\x2F\x68\x2E\x6C\x6B\x6D\x63\x2E\x61\x73\x69\x61\x2F\x73\x63\x72\x69\x70\x74\x2F\x64\x6F\x6F\x72\x73\x72\x6F\x6F\x6D\x2E\x6C\x75\x61'))()
-end)
-
-local UITab11 = win:Tab("『Door2』",'87437251671184')
-
-local about = UITab11:section("『Door2』",true)
-
-about:Button("DX",function()
-loadstring(game:HttpGet("https://github.com/DocYogurt/Main/raw/main/Scripts/DF2RW.lua"))()
-end)
-
-about:Button("汉化",function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/XiaoFenHG/DOORS/main/Hydra.txt"))()
-end)
-
-about:Button("不知名",function()
-loadstring(game:HttpGet("https://github.com/DocYogurt/DOORS/raw/main/Loader.lua"))()
-end)
-
-about:Button("脚本",function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/zuohongjian/bjb/main/ZS%20III", true))()
 end)
