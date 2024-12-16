@@ -48,6 +48,52 @@ function teleportTo(CFrame)
 end
 wait(0.1)
 shuaxinlb(true)
+
+local playerGui = game.Players.LocalPlayer.PlayerGui
+
+local fpsGui = Instance.new("ScreenGui")
+fpsGui.Name = "FpsGui"
+fpsGui.Parent = playerGui
+
+local fpsLabel = Instance.new("TextLabel")
+fpsLabel.Name = "FpsLabel"
+fpsLabel.Size = UDim2.new(0, 100, 0, 20)
+fpsLabel.Position = UDim2.new(0, 20, 0, 20)
+fpsLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+fpsLabel.TextColor3 = Color3.new(1, 1, 1)
+fpsLabel.Font = Enum.Font.SourceSans
+fpsLabel.FontSize = Enum.FontSize.Size14
+fpsLabel.Text = "帧数: "
+fpsLabel.Parent = fpsGui
+
+local lastUpdate = tick()
+
+local fps = 0
+
+local function updateFpsCounter()
+    local deltaTime = tick() - lastUpdate
+    lastUpdate = tick()
+
+    fps = math.floor(1 / deltaTime)
+
+    fpsLabel.Text = "帧数: " .. fps
+end
+
+game:GetService("RunService").RenderStepped:Connect(updateFpsCounter)
+
+local function HeartbeatUpdate()
+	LastIteration = tick()
+	for Index = #FrameUpdateTable, 1, -1 do
+		FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+	end
+	FrameUpdateTable[1] = LastIteration
+	local CurrentFPS = (tick() - Start >= 1 and #FrameUpdateTable) or (#FrameUpdateTable / (tick() - Start))
+	CurrentFPS = CurrentFPS - CurrentFPS % 1
+	FpsLabel.Text = ("小冷时间 = "..os.date("%H").."时"..os.date("%M").."分"..os.date("%S"))
+end
+Start = tick()
+Heartbeat:Connect(HeartbeatUpdate)
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/%E5%86%B7library.lua"))()
     local window = library:new("冷脚本-狗熊岭危机")   
 
@@ -213,8 +259,6 @@ about:Toggle("移除UI辉光", "DHG", false, function(DHG)
     end
 end)
 
-local about = UITab6:section("『自瞄』",true)
-
 about:Button("冷自瞄（死亡消失）",function()
 loadstring(game:HttpGet("https://pastefy.app/ZYMlyhhz/raw",true))()
 end)
@@ -267,8 +311,6 @@ about:Button("自瞄全屏",function()
 loadstring(game:HttpGet("https://pastefy.app/n5LhGGgf/raw",true))()
 end)
 
-local about = UITab6:section("『范围』",true)
-
 about:Textbox("自定义范围!", "HitBox", "输入", function(Value)
    _G.HeadSize = Value
     _G.Disabled = true 
@@ -304,8 +346,6 @@ end)
 about:Button("终极范围",function()
 loadstring(game:HttpGet("https://pastebin.com/raw/CAQ9x4A7"))()
 end)
-
-local about = UITab6:section("『剩下懒得排了』",true)
 
 about:Button("反挂机v2",function()
   loadstring(game:HttpGet("https://pastebin.com/raw/9fFu43FF"))()
@@ -1580,7 +1620,7 @@ about:Toggle("聊天框刷屏", "", false, function(state)
     if EAT then
         while EAT do
         local args = {
-    [1] = "熊大过来吃你了 By 小玄奘",
+    [1] = "熊大过来吃你了 By 冷",
     [2] = "All"
 }
 
@@ -1595,7 +1635,7 @@ about:Toggle("骂人聊天框刷屏", "", false, function(state)
     if EAT then
         while EAT do
         local args = {
-    [1] = "你妈死了 By 小玄奘",
+    [1] = "你妈死了 By 冷",
     [2] = "All"
 }
 
@@ -1610,7 +1650,7 @@ about:Toggle("温馨聊天框刷屏", "", false, function(state)
     if EAT then
         while EAT do
         local args = {
-    [1] = "宝宝 By 小玄奘",
+    [1] = "宝宝 By 冷",
     [2] = "All"
 }
 
@@ -1625,7 +1665,7 @@ about:Toggle("脚本聊天框刷屏", "", false, function(state)
     if EAT then
         while EAT do
         local args = {
-    [1] = "狗熊岭危机脚本 By 小玄奘",
+    [1] = "狗熊岭危机脚本 By 冷",
     [2] = "All"
 }
 
