@@ -23,6 +23,51 @@ function Notify(top, text, ico, dur)
   })
 end
 
+local playerGui = game.Players.LocalPlayer.PlayerGui
+
+local fpsGui = Instance.new("ScreenGui")
+fpsGui.Name = "FpsGui"
+fpsGui.Parent = playerGui
+
+local fpsLabel = Instance.new("TextLabel")
+fpsLabel.Name = "FpsLabel"
+fpsLabel.Size = UDim2.new(0, 100, 0, 20)
+fpsLabel.Position = UDim2.new(0, 20, 0, 20)
+fpsLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+fpsLabel.TextColor3 = Color3.new(1, 1, 1)
+fpsLabel.Font = Enum.Font.SourceSans
+fpsLabel.FontSize = Enum.FontSize.Size14
+fpsLabel.Text = "帧数: "
+fpsLabel.Parent = fpsGui
+
+local lastUpdate = tick()
+
+local fps = 0
+
+local function updateFpsCounter()
+    local deltaTime = tick() - lastUpdate
+    lastUpdate = tick()
+
+    fps = math.floor(1 / deltaTime)
+
+    fpsLabel.Text = "帧数: " .. fps
+end
+
+game:GetService("RunService").RenderStepped:Connect(updateFpsCounter)
+
+local function HeartbeatUpdate()
+	LastIteration = tick()
+	for Index = #FrameUpdateTable, 1, -1 do
+		FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+	end
+	FrameUpdateTable[1] = LastIteration
+	local CurrentFPS = (tick() - Start >= 1 and #FrameUpdateTable) or (#FrameUpdateTable / (tick() - Start))
+	CurrentFPS = CurrentFPS - CurrentFPS % 1
+	FpsLabel.Text = ("小冷时间 = "..os.date("%H").."时"..os.date("%M").."分"..os.date("%S"))
+end
+Start = tick()
+Heartbeat:Connect(HeartbeatUpdate)
+
 local Lengui = loadstring(game:HttpGet("https://raw.githubusercontent.com/LENG8123/UI/refs/heads/main/%E5%86%B7library.lua"))()     
 local win = Lengui:new("冷脚本")
 --
@@ -1103,7 +1148,7 @@ about:Button("蜜雪冰城",function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6984.87158203125, 9.332854270935059, 1734.770751953125)
 end)
 
-about:Button("到小区",function()
+about:Button("小区",function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2187.541259765625, 22.092992782592773, -636.7048950195312)
 end)
 
@@ -1131,6 +1176,9 @@ about:Button("签挂美食",function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-10332.763671875, 10.43997859954834, 7114.16064453125)
 end)
 
+about:Button("驾校",function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-8912.12109375, 9.963741302490234, 7302.568359375)
+end)
 
 local UITab11 = win:Tab("『整合』",'87437251671184')
 
